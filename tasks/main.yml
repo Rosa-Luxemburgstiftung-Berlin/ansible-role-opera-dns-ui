@@ -1,0 +1,62 @@
+---
+
+- name: Install required packages
+  apt:
+    name: "{{ opera_dnsui_packages }}"
+    update_cache: yes
+    cache_valid_time: 3600
+
+- name: Copy apache ssl key
+  copy:
+    src: "{{ opera_dnsui_servername }}.key"
+    dest: /etc/ssl/private/
+    owner: root
+    group: ssl-cert
+    mode: 0640
+  when: opera_dnsui_servername is defined
+  notify:
+    - apache restart
+
+- name: Copy apache ssl crt
+  copy:
+    src: "{{ opera_dnsui_servername }}.pem"
+    dest: /etc/ssl/certs/
+    mode: 0644
+  when: opera_dnsui_servername is defined
+  notify:
+    - apache restart
+
+- name: Enable apache modules
+  apache2_module:
+    name: "{{ item }}"
+  with_items: "{{ opera_dnsui_apache_modules }}"
+
+- name: Enable apache conf
+  command: "a2enconf {{ item }}"
+  args:
+    creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
+  with_items: "{{ opera_dnsui_apache_confs }}"
+  notify:
+    - apache restart
+
+- name: Clone Opera DNS-UI
+  git:
+    repo: "{{ opera_dnsui_repo_url }}"
+    dest: "{{ opera_dnsui_dir }}"
+    version: "{{ opera_dnsui_repo_version }}"
+    update: False
+
+- name: Copy apache site config
+  template:
+    src: apache-site.j2
+    dest: /etc/apache2/sites-available/opera-dnsui.conf
+    mode: 0644
+
+- name: Enable apache site config
+  command: a2ensite opera-dnsui
+  args:
+    creates: /etc/apache2/sites-enabled/opera-dnsui.conf
+  notify:
+    - apache restart
+
+# vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nu ft=yaml

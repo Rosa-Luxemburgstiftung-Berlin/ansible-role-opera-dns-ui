@@ -1,0 +1,44 @@
+---
+
+opera_dnsui_packages:
+  - apache2
+  - php-fpm
+  - php-intl
+  - php-json
+  - php-curl
+  - php-mbstring
+  - php-ldap
+  - php-pgsql
+  - postgresql
+
+# set this to the name of your host
+# ssl certificates should have the same name {{ opera_dnsui_servername }}.[key|pem]
+#opera_dnsui_servername:
+
+# bind webserver only to the IP defined here
+opera_dnsui_server_ip: '*'
+
+opera_dnsui_serveraliases: []
+
+# opera_dnsui_serveradmin: "admin@{{ opera_dnsui_servername }}"
+
+# opera_dnsui_ldapurl: # set this to enable LDAP AUTH
+# opera_dnsui_ldapbind_dn: # optional
+# opera_dnsui_ldapbind_pass : # optional
+# optional, defaults to 'valid-user'
+opera_dnsui_ldap_require: 'valid-user'
+
+opera_dnsui_apache_modules:
+  - ssl
+  - authnz_ldap
+  - headers
+
+opera_dnsui_apache_confs:
+  - php7.3-fpm
+
+opera_dnsui_dir: /srv/opera-dnsui
+
+opera_dnsui_repo_url: https://github.com/operasoftware/dns-ui.git
+opera_dnsui_repo_version: HEAD
+
+# vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nu ft=yaml

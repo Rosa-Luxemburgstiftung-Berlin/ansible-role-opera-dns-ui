@@ -1,0 +1,14 @@
+---
+
+- name: apache reload
+  service:
+    name: apache2
+    state: reloaded
+
+- name: apache restart
+  service:
+    name: apache2
+    state: restarted
+
+# vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nu ft=yaml
+
