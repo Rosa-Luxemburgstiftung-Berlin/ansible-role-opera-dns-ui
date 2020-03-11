@@ -1,0 +1,139 @@
+; DNS UI config file
+
+; {{ ansible_managed }}
+
+[web]
+enabled = {{ opera_dnsui_ini_web_enabled }}
+; Do not include a trailing / in the baseurl
+baseurl = {{ opera_dnsui_ini_web_baseurl }}
+logo = {{ opera_dnsui_ini_web_logo }}
+; header and footer may contain HTML. Literal & " < and > should be escaped as &amp; &quot; &lt; $gt;
+header = '{{ opera_dnsui_ini_web_header }}'
+footer = '{{ opera_dnsui_ini_web_footer }}'
+; Enable this option if you want system and zone admins to be forced to request changes just like the operators.
+force_change_review = {{ opera_dnsui_ini_force_change_review }}
+; Enable this option if you want all users to be forced to enter a comment for every change made.
+force_change_comment = {{ opera_dnsui_ini_force_change_comment }}
+
+[email]
+enabled = {{ opera_dnsui_ini_email_enabled }}
+; The mail address that outgoing mails will be sent from
+from_address = {{ opera_dnsui_ini_email_from_address }}
+from_name = '{{ opera_dnsui_ini_email_from_name }}'
+; Where to mail problem notifications to
+report_address = {{ opera_dnsui_ini_email_report_address }}
+report_name = '{{ opera_dnsui_ini_email_report_name }}'
+; You can use the reroute directive to redirect all outgoing mail to a single
+; mail address - typically for temporary testing purposes
+{% if opera_dnsui_ini_email_reroute is defined -%}
+reroute = {{ opera_dnsui_ini_email_reroute }}
+{% endif -%}
+
+[database]
+; Connection details to the Postgres database
+dsn = "{{ opera_dnsui_ini_db_dsn }}"
+username = {{ opera_dnsui_ini_db_username }}
+password = {{ opera_dnsui_ini_db_password }}
+
+[authentication]
+; compare the user ID's case? (on by default)
+user_case_sensitive = {{ opera_dnsui_ini_authentication_user_case_sensitive }}
+
+[php_auth]
+enabled = {{ opera_dnsui_ini_php_auth_enabled }}
+admin_group = "{{ opera_dnsui_ini_php_auth_admin_group }}"
+
+[ldap]
+enabled = {{ opera_dnsui_ini_ldap_enabled }}
+; Address to connect to LDAP server
+host = {{ opera_dnsui_ini_ldap_host }}
+; Use StartTLS for connection security (recommended if using ldap:// instead of ldaps:// above)
+starttls = {{ opera_dnsui_ini_ldap_starttls }}
+; LDAP subtree containing USER entries
+dn_user = "{{ opera_dnsui_ini_ldap_dn_user }}"
+; LDAP subtree containing GROUP entries
+dn_group = "{{ opera_dnsui_ini_ldap_dn_group }}"
+; Set to 1 if the LDAP library should process referrals. In most cases this
+; is not needed, and for AD servers it can cause errors when querying the
+; whole tree.
+follow_referrals = {{ opera_dnsui_ini_ldap_follow_referrals }}
+
+; Leave bind_dn empty if binding is not required
+bind_dn = '{{ opera_dnsui_ini_ldap_bind_dn }}'
+bind_password = {{ opera_dnsui_ini_ldap_bind_password }}
+
+; User attributes
+user_id = {{ opera_dnsui_ini_ldap_user_id }}
+user_name = {{ opera_dnsui_ini_ldap_user_name }}
+user_email = {{ opera_dnsui_ini_ldap_user_email }}
+
+; If inactive users exist in your LDAP directory, filter with the following settings:
+; Field to filter on:
+{% if opera_dnsui_ini_ldap_user_active is defined -%}
+user_active = {{ opera_dnsui_ini_ldap_user_active }}
+{% endif -%}
+; Use *one* of user_active_true or user_active_false
+; user_active_true means user is active if the user_active field equals its value
+{% if opera_dnsui_ini_ldap_user_active_true is defined -%}
+user_active_true = '{{ opera_dnsui_ini_ldap_user_active_true }}'
+{% endif -%}
+; user_active_false means user is active if the user_active field does not equal its value
+{% if opera_dnsui_ini_ldap_user_active_false is defined -%}
+user_active_false = '{{ opera_dnsui_ini_ldap_user_active_false }}'
+{% endif -%}
+
+; Group membership attributes. Examples below are for typical setups:
+;
+; POSIX groups
+;  group_member = memberUid
+;  group_member_value = uid
+;
+; Group-of-names groups
+;  group_member = member
+;  group_member_value = dn
+;
+; Attribute of group where members are stored
+group_member = {{ opera_dnsui_ini_ldap_group_member }}
+; User attribute to compare with
+group_member_value = {{ opera_dnsui_ini_ldap_group_member_value }}
+
+; Members of admin_group are given full access to DNS UI web interface
+admin_group_cn = {{ opera_dnsui_ini_ldap_admin_group_cn }}
+
+[powerdns]
+api_url = "{{ opera_dnsui_ini_powerdns_api_url }}"
+api_key = {{ opera_dnsui_ini_powerdns_api_key }}
+
+; Earlier version of DNS UI use INCEPTION-INCREMENT as the default for soa_edit_api but this has
+; been dropped in PowerDNS 4.2; DEFAULT should be used instead, but one can set a different value
+; for backwards compatibility with earlier PowerDNS versions.
+soa_edit_api = {{ opera_dnsui_ini_soa_edit_api }}
+
+[dns]
+; Enable DNSSEC view UI (requires PowerDNS 4.1)
+dnssec = {{ opera_dnsui_ini_dns_dnssec }}
+; Allow enabling/disabling DNSSEC through the UI
+dnssec_edit = {{ opera_dnsui_ini_dns_dnssec_edit }}
+
+; If enabled (the default), matching PTR records will be automatically created
+; when new A or AAAA records are added.
+autocreate_reverse_records = {{ opera_dnsui_ini_dns_autocreate_reverse_records }}
+
+; Space-separated lists
+local_zone_suffixes = "{{ opera_dnsui_ini_dns_local_zone_suffixes }}"
+local_ipv4_ranges = "{{ opera_dnsui_ini_dns_local_ipv4_ranges }}"
+local_ipv6_ranges = "{{ opera_dnsui_ini_dns_local_ipv6_ranges }}"
+
+; if non-empty, only allow entering these (comma seperated) values in the Classification column
+; Note that this is purely a front-end restriction, designed to avoid accidental errors.
+{% if opera_dnsui_ini_dns_classification_whitelist is defined -%}
+classification_whitelist = "{{ opera_dnsui_ini_dns_classification_whitelist }}"
+{% endif -%}
+
+[git_tracked_export]
+; If enabled, will export zones as bind9 zone format to the specified path and
+; will git add / git commit on behalf of the active user.
+; path must be a git repository writable by the webserver user.
+enabled = {{ opera_dnsui_ini_git_tracked_export_enabled }}
+path = {{ opera_dnsui_ini_git_tracked_export_path }}
+

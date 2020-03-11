@@ -30,6 +30,7 @@ opera_dnsui_ldap_require: 'valid-user'
 
 opera_dnsui_apache_modules:
   - ssl
+  - ldap
   - authnz_ldap
   - headers
 
@@ -40,5 +41,57 @@ opera_dnsui_dir: /srv/opera-dnsui
 
 opera_dnsui_repo_url: https://github.com/operasoftware/dns-ui.git
 opera_dnsui_repo_version: HEAD
+
+opera_dnsui_ini_web_enabled: 1
+# Do not include a trailing / in the baseurl
+opera_dnsui_ini_web_baseurl: "https://{{ opera_dnsui_servername | default(ansible_default_ipv4.address) }}"
+opera_dnsui_ini_web_logo: /logo-header-opera.png
+opera_dnsui_ini_web_header: DNS management
+opera_dnsui_ini_web_footer: 'Developed by <a href="https://www.opera.com/">Opera Software</a>'
+opera_dnsui_ini_force_change_review: 0
+opera_dnsui_ini_force_change_comment: 0
+opera_dnsui_ini_email_enabled: 0
+opera_dnsui_ini_email_from_address: ''
+opera_dnsui_ini_email_from_name: ''
+opera_dnsui_ini_email_report_address: ''
+opera_dnsui_ini_email_report_name: ''
+# You can use the reroute directive to redirect all outgoing mail to a single
+# mail address - typically for temporary testing purposes
+#opera_dnsui_ini_email_reroute:
+opera_dnsui_ini_db_dsn: pgsql:host=localhost dbname=dnsui
+opera_dnsui_ini_db_username: username
+opera_dnsui_ini_db_password: password
+opera_dnsui_ini_authentication_user_case_sensitive: 1
+opera_dnsui_ini_php_auth_enabled: 0
+opera_dnsui_ini_php_auth_admin_group: systems
+opera_dnsui_ini_ldap_enabled: 1
+opera_dnsui_ini_ldap_host: ldaps://ldap.example.com:636
+opera_dnsui_ini_ldap_starttls: 0
+opera_dnsui_ini_ldap_dn_user: ou=users,dc=example,dc=com
+opera_dnsui_ini_ldap_dn_group: ou=groups,dc=example,dc=com
+opera_dnsui_ini_ldap_follow_referrals: 0
+opera_dnsui_ini_ldap_bind_dn: ""
+opera_dnsui_ini_ldap_bind_password: ""
+opera_dnsui_ini_ldap_user_id: uid
+opera_dnsui_ini_ldap_user_name: cn
+opera_dnsui_ini_ldap_user_email: mail
+#opera_dnsui_ini_ldap_user_active:
+#opera_dnsui_ini_ldap_user_active_true:
+#opera_dnsui_ini_ldap_user_active_false:
+opera_dnsui_ini_ldap_group_member: memberUid
+opera_dnsui_ini_ldap_group_member_value: uid
+opera_dnsui_ini_ldap_admin_group_cn: administrators
+opera_dnsui_ini_powerdns_api_url: "http://localhost:8081/api/v1/servers/localhost"
+opera_dnsui_ini_powerdns_api_key: api_key
+opera_dnsui_ini_soa_edit_api: DEFAULT
+opera_dnsui_ini_dns_dnssec: 0
+opera_dnsui_ini_dns_dnssec_edit: 1
+opera_dnsui_ini_dns_autocreate_reverse_records: 1
+opera_dnsui_ini_dns_local_zone_suffixes: "localdomain"
+opera_dnsui_ini_dns_local_ipv4_ranges: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.0/8"
+opera_dnsui_ini_dns_local_ipv6_ranges: "fd00::/8 ::1/128"
+#opera_dnsui_ini_dns_classification_whitelist: internal,public
+opera_dnsui_ini_git_tracked_export_enabled: 0
+opera_dnsui_ini_git_tracked_export_path: /tmp/dns-export
 
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nu ft=yaml

@@ -59,4 +59,12 @@
   notify:
     - apache restart
 
+- name: Copy apache site config
+  template:
+    src: config.ini.j2
+    dest: /srv/opera-dnsui/config/config.ini
+    mode: 0640
+    owner: root
+    group: www-data
+
 # vim: tabstop=2 expandtab shiftwidth=2 softtabstop=2 smartindent nu ft=yaml
