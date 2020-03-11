@@ -18,3 +18,34 @@ setup [opera dns ui](https://github.com/operasoftware/dns-ui) on debian based ho
       - opera-dns-ui
 
 ```
+
+## run without LDAP
+set vars:
+```
+# opera_dnsui_ldapurl: # unset this!
+opera_dnsui_ini_ldap_enabled: 0
+opera_dnsui_ini_php_auth_enabled: 1
+```
+
+create http auth user:
+```
+htpasswd -c /srv/opera-dnsui.httpauth test
+```
+and create php auth user:
+```
+root@ns:/srv/opera-dnsui# php scripts/create_admin_account.php
+This script creates a new admin account in DNS UI.
+If you are using a central authentication directory (eg. LDAP) then
+you probably don't need to use this.
+
+User ID of new admin account:
+test
+
+Full name of user:
+testosteron
+
+Email address of user:
+test@test.tset
+
+Administrative user test created.
+```
