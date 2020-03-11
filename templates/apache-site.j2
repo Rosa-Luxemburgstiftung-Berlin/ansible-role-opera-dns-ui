@@ -26,10 +26,10 @@
 	Header always set Strict-Transport-Security "max-age=15768000; includeSubDomains"
 
 	DocumentRoot {{ opera_dnsui_dir }}/public_html
-	{% if opera_dnsui_ldapurl is defined -%}
 	<Directory {{ opera_dnsui_dir }}/public_html>
 		AuthType Basic
-		AuthName "DNS UI"
+		AuthName "{{ opera_dnsui_ini_web_header }}"
+		{% if opera_dnsui_ldapurl is defined -%}
 		AuthBasicProvider ldap
 		AuthLDAPURL {{ opera_dnsui_ldapurl }}
 		{% if opera_dnsui_ldapbind_dn is defined and opera_dnsui_ldapbind_pass is defined -%}
@@ -37,9 +37,12 @@
 		AuthLDAPBindPassword {{ opera_dnsui_ldapbind_pass }}
 		{% endif -%}
 		Require {{ opera_dnsui_ldap_require }}
+		{% else -%}
+		AuthUserFile {{ opera_dnsui_dir }}.httpauth
+		Require valid-user
+		{% endif -%}
 		AllowOverride none
 	</Directory>
-	{% endif -%}
 
 	DirectoryIndex init.php
 	FallbackResource /init.php
