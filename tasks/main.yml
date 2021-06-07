@@ -51,6 +51,8 @@
     src: apache-site.j2
     dest: /etc/apache2/sites-available/opera-dnsui.conf
     mode: 0644
+  notify:
+    - apache restart
 
 - name: Enable apache site config
   command: a2ensite opera-dnsui
