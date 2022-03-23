@@ -37,8 +37,9 @@ opera_dnsui_apache_modules:
   - authnz_ldap
   - headers
 
-opera_dnsui_apache_confs:
-  - php7.3-fpm
+# apache confs to enable
+opera_dnsui_apache_confs: []
+apache_php_fmp_conf:  # will be set depending on the OS
 
 opera_dnsui_dir: /srv/opera-dnsui
 
