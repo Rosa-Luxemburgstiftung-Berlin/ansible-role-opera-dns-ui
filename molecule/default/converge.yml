@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Apt update
+      apt:
+        update_cache: true
+    - name: "Include opera-dns-ui"
+      include_role:
+        name: "opera-dns-ui"
