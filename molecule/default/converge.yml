@@ -7,4 +7,4 @@
         update_cache: true
     - name: "Include opera-dns-ui"
       include_role:
-        name: "opera-dns-ui"
+        name: "ansible-role-opera-dns-ui"
