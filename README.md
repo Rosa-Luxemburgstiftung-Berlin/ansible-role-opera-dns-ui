@@ -1,3 +1,5 @@
+[![ansible-lint](https://github.com/Rosa-Luxemburgstiftung-Berlin/ansible-role-opera-dns-ui/actions/workflows/lint.yml/badge.svg)](https://github.com/Rosa-Luxemburgstiftung-Berlin/ansible-role-opera-dns-ui/actions/workflows/lint.yml)
+
 # ansible-role-opera-dns-ui
 setup [opera dns ui](https://github.com/operasoftware/dns-ui) on debian based hosts via ansible
 
