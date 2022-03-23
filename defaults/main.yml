@@ -13,6 +13,7 @@ opera_dnsui_packages:
   - php-ldap
   - php-pgsql
   - postgresql
+  - git
 
 # set this to the name of your host
 # ssl certificates should have the same name {{ opera_dnsui_servername }}.[key|pem]
