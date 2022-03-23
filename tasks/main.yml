@@ -3,7 +3,7 @@
 - name: Install required packages
   apt:
     name: "{{ opera_dnsui_packages }}"
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
 
 - name: Copy apache ssl key
@@ -44,7 +44,7 @@
     repo: "{{ opera_dnsui_repo_url }}"
     dest: "{{ opera_dnsui_dir }}"
     version: "{{ opera_dnsui_repo_version }}"
-    update: False
+    update: false
 
 - name: Copy apache site config
   template:
