@@ -16,7 +16,7 @@ opera_dnsui_packages:
 
 # set this to the name of your host
 # ssl certificates should have the same name {{ opera_dnsui_servername }}.[key|pem]
-#opera_dnsui_servername:
+# opera_dnsui_servername:
 
 # bind webserver only to the IP defined here
 opera_dnsui_server_ip: '*'
@@ -60,7 +60,7 @@ opera_dnsui_ini_email_report_address: ''
 opera_dnsui_ini_email_report_name: ''
 # You can use the reroute directive to redirect all outgoing mail to a single
 # mail address - typically for temporary testing purposes
-#opera_dnsui_ini_email_reroute:
+# opera_dnsui_ini_email_reroute:
 opera_dnsui_ini_db_dsn: pgsql:host=localhost dbname=dnsui
 opera_dnsui_ini_db_username: username
 opera_dnsui_ini_db_password: password
@@ -78,9 +78,9 @@ opera_dnsui_ini_ldap_bind_password: ""
 opera_dnsui_ini_ldap_user_id: uid
 opera_dnsui_ini_ldap_user_name: cn
 opera_dnsui_ini_ldap_user_email: mail
-#opera_dnsui_ini_ldap_user_active:
-#opera_dnsui_ini_ldap_user_active_true:
-#opera_dnsui_ini_ldap_user_active_false:
+# opera_dnsui_ini_ldap_user_active:
+# opera_dnsui_ini_ldap_user_active_true:
+# opera_dnsui_ini_ldap_user_active_false:
 opera_dnsui_ini_ldap_group_member: memberUid
 opera_dnsui_ini_ldap_group_member_value: uid
 opera_dnsui_ini_ldap_admin_group_cn: administrators
@@ -93,7 +93,7 @@ opera_dnsui_ini_dns_autocreate_reverse_records: 1
 opera_dnsui_ini_dns_local_zone_suffixes: "localdomain"
 opera_dnsui_ini_dns_local_ipv4_ranges: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.0/8"
 opera_dnsui_ini_dns_local_ipv6_ranges: "fd00::/8 ::1/128"
-#opera_dnsui_ini_dns_classification_whitelist: internal,public
+# opera_dnsui_ini_dns_classification_whitelist: internal,public
 opera_dnsui_ini_git_tracked_export_enabled: 0
 opera_dnsui_ini_git_tracked_export_path: /tmp/dns-export
 
