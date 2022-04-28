@@ -45,7 +45,7 @@ apache_php_fmp_conf:  # will be set depending on the OS
 opera_dnsui_dir: /srv/opera-dnsui
 
 opera_dnsui_repo_url: https://github.com/operasoftware/dns-ui.git
-opera_dnsui_repo_version: v0.2.6
+opera_dnsui_repo_version: v0.2.7
 
 opera_dnsui_ini_web_enabled: 1
 # Do not include a trailing / in the baseurl
