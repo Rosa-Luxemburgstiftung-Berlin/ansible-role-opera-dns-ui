@@ -7,7 +7,7 @@ setup [opera dns ui](https://github.com/operasoftware/dns-ui) on debian based ho
 
 ## run
 
-```
+```yaml
 - hosts: pdns
   roles:
   - role: geerlingguy.postgresql #https://github.com/geerlingguy/ansible-role-postgresql
@@ -25,7 +25,7 @@ setup [opera dns ui](https://github.com/operasoftware/dns-ui) on debian based ho
 
 ## run without LDAP
 set vars:
-```
+```yaml
 # opera_dnsui_ldapurl: # unset this!
 opera_dnsui_ini_ldap_enabled: 0
 opera_dnsui_ini_php_auth_enabled: 1
