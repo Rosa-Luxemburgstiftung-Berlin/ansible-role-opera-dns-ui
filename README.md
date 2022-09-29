@@ -5,6 +5,9 @@
 # ansible-role-opera-dns-ui
 setup [opera dns ui](https://github.com/operasoftware/dns-ui) on debian based hosts via ansible
 
+## requirements
+tested with ansible `core >= 2.13.2`
+
 ## run
 
 ```yaml
