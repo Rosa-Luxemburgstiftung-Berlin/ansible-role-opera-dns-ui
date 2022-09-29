@@ -1,16 +1,16 @@
 ---
 
 - name: read os specific vars
-  include_vars: "{{ ansible_os_family | lower }}-{{ ansible_distribution_release | lower }}.yml"
+  ansible.builtin.include_vars: "{{ ansible_os_family | lower }}-{{ ansible_distribution_release | lower }}.yml"
 
 - name: Install required packages
-  apt:
+  ansible.builtin.apt:
     name: "{{ opera_dnsui_packages }}"
     update_cache: true
     cache_valid_time: 3600
 
 - name: Copy apache ssl key
-  copy:
+  ansible.builtin.copy:
     src: "{{ opera_dnsui_servername }}.key"
     dest: /etc/ssl/private/
     owner: root
@@ -21,7 +21,7 @@
     - apache restart
 
 - name: Copy apache ssl crt
-  copy:
+  ansible.builtin.copy:
     src: "{{ opera_dnsui_servername }}.pem"
     dest: /etc/ssl/certs/
     mode: 0644
@@ -30,12 +30,12 @@
     - apache restart
 
 - name: Enable apache modules
-  apache2_module:
+  community.general.apache2_module:
     name: "{{ item }}"
   with_items: "{{ opera_dnsui_apache_modules }}"
 
 - name: Enable apache conf
-  command: "a2enconf {{ item }}"
+  ansible.builtin.command: "a2enconf {{ item }}"
   args:
     creates: "/etc/apache2/conf-enabled/{{ item }}.conf"
   with_items: "{{ opera_dnsui_apache_confs + [apache_php_fmp_conf] }}"
@@ -43,14 +43,14 @@
     - apache restart
 
 - name: Clone Opera DNS-UI
-  git:
+  ansible.builtin.git:
     repo: "{{ opera_dnsui_repo_url }}"
     dest: "{{ opera_dnsui_dir }}"
     version: "{{ opera_dnsui_repo_version }}"
     update: false
 
 - name: Copy apache site config
-  template:
+  ansible.builtin.template:
     src: apache-site.j2
     dest: /etc/apache2/sites-available/opera-dnsui.conf
     mode: 0644
@@ -58,14 +58,14 @@
     - apache restart
 
 - name: Enable apache site config
-  command: a2ensite opera-dnsui
+  ansible.builtin.command: a2ensite opera-dnsui
   args:
     creates: /etc/apache2/sites-enabled/opera-dnsui.conf
   notify:
     - apache restart
 
 - name: Copy apache site config
-  template:
+  ansible.builtin.template:
     src: config.ini.j2
     dest: /srv/opera-dnsui/config/config.ini
     mode: 0640
