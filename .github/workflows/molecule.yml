@@ -7,7 +7,8 @@ on:
   schedule:
     - cron: "20 6 * * 1"
 jobs:
-  build:
+  ansible-latest:
+    name: latest ansible version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +19,47 @@ jobs:
           python-version: 3.9
 
       - name: Install test dependencies.
-        run: pip3 install ansible "molecule[docker,lint]" yamllint ansible-lint requests
+        run: pip3 install requests ansible "molecule[docker,lint]" yamllint ansible-lint
+
+      - name: run molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+
+  ansible-pinned:
+    name: pinned ansible version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install test dependencies.
+        run: pip3 install requests "ansible==6.2.0" "molecule[docker,lint]==3.5.2" "yamllint==1.26.0" "ansible-lint==6.4.0"
+
+      - name: run molecule tests
+        run: molecule test
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+
+  ansible-legacy:
+    name: legacy ansible version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+
+      - name: Install test dependencies.
+        run: pip3 install requests "ansible==2.9.27" "molecule[docker,lint]==3.2.3" "yamllint==1.24.2" "ansible-lint==4.2.0"
 
       - name: run molecule tests
         run: molecule test
