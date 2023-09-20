@@ -48,6 +48,37 @@
     dest: "{{ opera_dnsui_dir }}"
     version: "{{ opera_dnsui_repo_version }}"
     update: false
+  when: not (opera_dnsui_repo_download_tgz | default(false) | bool)
+
+- name: Download Opera DNS-UI
+  block:
+    - name: Fetch {{ opera_dnsui_repo_version }}.tar.gz
+      delegate_to: localhost
+      ansible.builtin.get_url:
+        url: "{{ opera_dnsui_repo_download_url }}"
+        dest: "{{ _local_tmp }}/opera-dns-ui.tar.gz"
+        force: false
+        mode: 0600
+    - name: Upload {{ opera_dnsui_repo_download_url | ansible.builtin.basename }}
+      ansible.builtin.copy:
+        src: "{{ _local_tmp }}/opera-dns-ui.tar.gz"
+        dest: /var/tmp/opera-dns-ui.tar.gz
+        force: false
+        mode: 0600
+    - name: Create {{ opera_dnsui_dir }}
+      ansible.builtin.file:
+        path: "{{ opera_dnsui_dir }}"
+        state: directory
+        mode: "0755"
+        owner: root
+    - name: Unpack {{ opera_dnsui_repo_download_url | ansible.builtin.basename }}
+      ansible.builtin.unarchive:
+        dest: "{{ opera_dnsui_dir }}"
+        src: /var/tmp/opera-dns-ui.tar.gz
+        remote_src: yes
+        extra_opts:
+          - --strip-components=1
+  when: opera_dnsui_repo_download_tgz | default(false) | bool
 
 - name: Copy apache site config
   ansible.builtin.template:
