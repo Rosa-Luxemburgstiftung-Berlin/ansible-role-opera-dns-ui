@@ -44,8 +44,18 @@ apache_php_fmp_conf:  # will be set depending on the OS
 
 opera_dnsui_dir: /srv/opera-dnsui
 
-opera_dnsui_repo_url: https://github.com/operasoftware/dns-ui.git
+opera_dnsui_github_url: https://github.com/operasoftware/dns-ui
+opera_dnsui_repo_url: "{{ opera_dnsui_github_url }}.git"
 opera_dnsui_repo_version: v0.2.7
+
+# do not use git clone, but use a indirect / detour download via the ansible running host
+# sample url: https://github.com/operasoftware/dns-ui/archive/refs/tags/v0.2.7.tar.gz
+opera_dnsui_repo_download_tgz: false
+# for refs this must be changed to https://github.com/operasoftware/dns-ui/archive/refs/heads/master.tar.gz
+opera_dnsui_repo_download_url: "{{ opera_dnsui_github_url }}/archive/refs/tags/{{ opera_dnsui_repo_version }}.tar.gz"
+
+# dir to store files on running host
+tmp_var_dir: "{{ lookup('config', 'DEFAULT_LOCAL_TMP') | dirname }}"
 
 opera_dnsui_ini_web_enabled: 1
 # Do not include a trailing / in the baseurl
