@@ -37,6 +37,14 @@ tested with ansible `core >= 2.13.2`
       - opera-dns-ui
 ```
 
+### install from fork
+
+If you like to use a diferent install source, i.e. a fork, just set something like
+```yaml
+opera_dnsui_github_url: https://github.com/Rosa-Luxemburgstiftung-Berlin/dns-ui
+opera_dnsui_repo_version: v0.2.7-203
+```
+
 ## run without LDAP
 set vars:
 ```yaml
