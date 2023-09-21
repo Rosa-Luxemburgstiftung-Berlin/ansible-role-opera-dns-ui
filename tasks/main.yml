@@ -78,6 +78,7 @@
         remote_src: true
         extra_opts:
           - --strip-components=1
+        creates: "{{ opera_dnsui_dir }}/config"
   when: opera_dnsui_repo_download_tgz | default(false) | bool
 
 - name: Copy apache site config
