@@ -12,6 +12,18 @@ tested with ansible `core >= 2.13.2`
 
 ```yaml
 - hosts: pdns
+  vars:
+    postgresql_users:
+      - name: dnsui-user
+        password: !vault  |
+              $ANSIBLE_VAULT....
+    postgresql_databases:
+      - name: dnsui
+        owner: "{{ postgresql_users.0.name }}"
+    opera_dnsui_ini_db_dsn: "pgsql:host=localhost dbname={{ postgresql_databases.0.name }}"
+    opera_dnsui_ini_db_username: "{{ postgresql_users.0.name }}"
+    opera_dnsui_ini_db_password: "{{ postgresql_users.0.password }}"
+    ...
   roles:
   - role: geerlingguy.postgresql #https://github.com/geerlingguy/ansible-role-postgresql
     tags:
@@ -23,7 +35,6 @@ tested with ansible `core >= 2.13.2`
     tags:
       - pdns
       - opera-dns-ui
-
 ```
 
 ## run without LDAP
