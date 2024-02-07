@@ -54,6 +54,9 @@ opera_dnsui_repo_download_tgz: false
 # for refs this must be changed to https://github.com/operasoftware/dns-ui/archive/refs/heads/master.tar.gz
 opera_dnsui_repo_download_url: "{{ opera_dnsui_github_url }}/archive/refs/tags/{{ opera_dnsui_repo_version }}.tar.gz"
 
+# force update
+opera_dnsui_force_update: false
+
 # dir to store files on running host
 tmp_var_dir: "{{ lookup('config', 'DEFAULT_LOCAL_TMP') | dirname }}"
 

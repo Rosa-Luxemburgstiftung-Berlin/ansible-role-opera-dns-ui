@@ -47,7 +47,7 @@
     repo: "{{ opera_dnsui_repo_url }}"
     dest: "{{ opera_dnsui_dir }}"
     version: "{{ opera_dnsui_repo_version }}"
-    update: false
+    update: "{{ opera_dnsui_force_update | bool }}"
   when: not (opera_dnsui_repo_download_tgz | default(false) | bool)
 
 - name: Download Opera DNS-UI
@@ -57,14 +57,19 @@
       ansible.builtin.get_url:
         url: "{{ opera_dnsui_repo_download_url }}"
         dest: "{{ _local_tmp }}/opera-dns-ui.tar.gz"
-        force: false
+        force: "{{ opera_dnsui_force_update | bool }}"
         mode: "0600"
     - name: Upload {{ opera_dnsui_repo_download_url | ansible.builtin.basename }}
       ansible.builtin.copy:
         src: "{{ _local_tmp }}/opera-dns-ui.tar.gz"
         dest: /var/tmp/opera-dns-ui.tar.gz
-        force: false
+        force: "{{ opera_dnsui_force_update | bool }}"
         mode: "0600"
+    - name: Clean up {{ opera_dnsui_dir }}
+      ansible.builtin.file:
+        path: "{{ opera_dnsui_dir }}"
+        state: absent
+      when: "{{ opera_dnsui_force_update | bool }}"
     - name: Create {{ opera_dnsui_dir }}
       ansible.builtin.file:
         path: "{{ opera_dnsui_dir }}"
