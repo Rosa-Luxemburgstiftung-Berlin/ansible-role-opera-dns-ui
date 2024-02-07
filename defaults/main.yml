@@ -46,7 +46,7 @@ opera_dnsui_dir: /srv/opera-dnsui
 
 opera_dnsui_github_url: https://github.com/operasoftware/dns-ui
 opera_dnsui_repo_url: "{{ opera_dnsui_github_url }}.git"
-opera_dnsui_repo_version: v0.2.7
+opera_dnsui_repo_version: v0.2.8
 
 # do not use git clone, but use a indirect / detour download via the ansible running host
 # sample url: https://github.com/operasoftware/dns-ui/archive/refs/tags/v0.2.7.tar.gz
