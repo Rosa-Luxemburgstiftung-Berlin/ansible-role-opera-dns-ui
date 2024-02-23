@@ -105,6 +105,7 @@ opera_dnsui_ini_soa_edit_api: DEFAULT
 opera_dnsui_ini_dns_dnssec: 0
 opera_dnsui_ini_dns_dnssec_edit: 1
 # set-ptr has been removed from pdns, so this will not work anymore
+# see https://github.com/operasoftware/dns-ui/pull/209
 opera_dnsui_ini_dns_autocreate_reverse_records: 0
 opera_dnsui_ini_dns_local_zone_suffixes: "localdomain"
 opera_dnsui_ini_dns_local_ipv4_ranges: "10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 127.0.0.0/8"
