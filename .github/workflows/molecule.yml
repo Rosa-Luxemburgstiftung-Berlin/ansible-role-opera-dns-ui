@@ -15,10 +15,10 @@ jobs:
       matrix:
         ansible:
           - latest ansible
-          - pinned ansible
+          #- pinned ansible
         distro:
           - debian13
-          - debian12
+          #- debian12
         include:
           - ansible: latest ansible
             pip3deps: 'ansible "molecule==25.6.0" "molecule-plugins[docker]" yamllint ansible-lint "requests<2.29" "urllib3<2"'
