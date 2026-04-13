@@ -18,7 +18,7 @@ jobs:
           - pinned ansible
           - legacy ansible
         distro:
-          - debian11
+          - debian13
           - debian12
         include:
           - ansible: latest ansible
@@ -40,7 +40,7 @@ jobs:
 
       - name: Install collections required on ansible 2.9
         run: ansible-galaxy collection install community.general
-        if: ${{ matrix.ansible == 'legacy ansible' }} 
+        if: ${{ matrix.ansible == 'legacy ansible' }}
 
       - name: run molecule tests
         run: molecule test
