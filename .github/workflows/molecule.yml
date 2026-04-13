@@ -25,7 +25,9 @@ jobs:
           - ansible: pinned ansible
             pip3deps: '"ansible==11.13.0" "ansible-core==2.18.15" "molecule-plugins[docker]" "yamllint==1.38.0" "ansible-lint==26.4.0" "requests==2.32.4" "urllib3==2.6.3"'
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          path: 'ansible-role-opera-dns-ui'
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -39,8 +41,17 @@ jobs:
         run: ansible-galaxy collection install community.general
         if: ${{ matrix.ansible == 'legacy ansible' }}
 
+      - name: debug ansible version
+        run: ansible --version
+
+      - name: debug pwd
+        run: pwd
+      - name: debug ls
+        run: ls
+
       - name: run molecule tests
         run: molecule test
+        working-directory: 'ansible-role-opera-dns-ui'
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
