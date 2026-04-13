@@ -16,7 +16,6 @@ jobs:
         ansible:
           - latest ansible
           - pinned ansible
-          - legacy ansible
         distro:
           - debian13
           - debian12
@@ -24,9 +23,7 @@ jobs:
           - ansible: latest ansible
             pip3deps: 'ansible molecule "molecule-plugins[docker]" yamllint ansible-lint "requests<2.29" "urllib3<2"'
           - ansible: pinned ansible
-            pip3deps: '"ansible==7.4.0" "molecule[docker,lint]==3.5.2" "yamllint==1.26.0" "ansible-lint==6.4.0" "requests<2.29" "urllib3<2"'
-          - ansible: legacy ansible
-            pip3deps: '"ansible==2.9.27" "molecule[docker,lint]==3.2.3" "yamllint==1.24.2" "ansible-lint==4.2.0" "requests<2.29" "urllib3<2"'
+            pip3deps: '"ansible==11.13.0" "ansible-core==2.18.15" "molecule-plugins[docker]" "yamllint==1.38.0" "ansible-lint==26.4.0" "requests==2.32.4" "urllib3==2.6.3"'
     steps:
       - uses: actions/checkout@v2
 
