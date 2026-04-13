@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.13 # w/ 3.11 the role is not found
+          python-version: 3.13.5  # w/ 3.11 the role is not found
 
       - name: Install test dependencies.
         run: pip3 install ${{ matrix.pip3deps }}
