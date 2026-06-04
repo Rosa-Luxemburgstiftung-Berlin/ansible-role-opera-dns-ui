@@ -53,8 +53,9 @@
 
 - name: Download Opera DNS-UI
   block:
-    - name: Fetch {{ opera_dnsui_repo_version }}.tar.gz
+    - name: Fetch {{ opera_dnsui_repo_version }}.tar.gz to the ansible runner
       delegate_to: localhost
+      check_mode: false
       ansible.builtin.get_url:
         url: "{{ opera_dnsui_repo_download_url }}"
         dest: "{{ _local_tmp }}/opera-dns-ui.tar.gz"
